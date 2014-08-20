@@ -31,7 +31,7 @@
         <li ng-repeat="task in journal.tasks" class="task">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="panel-title">{{task.title}}
+              <div class="panel-title">{{task.name}}
                 <div showonparenthover class="task-controls">
                   <button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span>
                   </button>
@@ -44,7 +44,7 @@
               <tbody>
                 <tr ng-repeat="step in task.steps">
                   <td class="step">
-                    <div class="step-title">{{step.title}}
+                    <div class="step-title">{{step.name}}
                       <div showonparenthover class="step-controls">
                         <button class="btn btn-warning btn-xs"><span
                             class="glyphicon glyphicon-log-out"></span></button>

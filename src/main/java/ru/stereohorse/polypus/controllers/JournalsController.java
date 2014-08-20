@@ -24,6 +24,6 @@ public class JournalsController {
 
     @RequestMapping("{name}/{timestamp}")
     public Journal getJournal(@PathVariable("name") String name, @PathVariable("timestamp") Long timestamp) {
-        return new Journal(journalsService.getOrCreateJournal(name, new Date(timestamp)));
+        return journalsService.getOrCreateJournal(name, new Date(timestamp));
     }
 }

@@ -35,7 +35,7 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
             createTask: function(journal, taskName) {
                 var request = {
                     journalId: journal.id,
-                    name: taskName
+                    taskName: taskName
                 };
 
                 return tasksFactory.save(request);

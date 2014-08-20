@@ -16,23 +16,24 @@ public class Task {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne
-    @JoinColumn(name = "journal")
-    private Journal journal;
-
     @Column(name = "name")
     private String name;
 
     @ManyToOne
     @JoinColumn(name = "status")
-    private Status status;
+    protected Status status;
 
     @ManyToOne
     @JoinColumn(name = "priority")
     private Priority priority;
 
+    @ManyToOne
+    @JoinColumn(name = "journal")
+    private Journal journal;
 
-    public Task() {}
+
+    public Task() {
+    }
 
     public Task(Task task) {
         this.date = task.date;
@@ -57,14 +58,6 @@ public class Task {
         this.date = date;
     }
 
-    public Journal getJournal() {
-        return journal;
-    }
-
-    public void setJournal(Journal journal) {
-        this.journal = journal;
-    }
-
     public String getName() {
         return name;
     }
@@ -87,5 +80,13 @@ public class Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
     }
 }

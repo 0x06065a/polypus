@@ -13,6 +13,7 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
         $scope.addStep = function() {};
 
         $scope.addTask = function() {
-            tasksService.createTask($scope.journal, $scope.newTaskName);
+            var task = tasksService.createTask($scope.journal, $scope.newTaskName);
+            $scope.journal.tasks.push(task);
         };
     });

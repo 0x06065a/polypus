@@ -15,14 +15,8 @@ public class Journal {
     @Column(name = "name", unique = true)
     private String name;
 
-
-    public Journal() {
-    }
-
-    public Journal(Journal journal) {
-        this.id = journal.id;
-        this.name = journal.name;
-    }
+    @Transient
+    private List<Task> tasks;
 
 
     public String getName() {
@@ -39,5 +33,13 @@ public class Journal {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

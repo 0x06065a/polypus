@@ -22,7 +22,7 @@ describe('tasks service', function() {
             name: 'awesomeTask',
             somethingElse: 'awesomeTask'
         };
-        $httpBackend.expectPOST('api/tasks', {journalId: '123', name: expectedTask.name}).respond(expectedTask);
+        $httpBackend.expectPOST('api/tasks', {journalId: '123', taskName: expectedTask.name}).respond(expectedTask);
 
         var createdTask = tasksService.createTask({id: '123'}, expectedTask.name);
         $httpBackend.flush();

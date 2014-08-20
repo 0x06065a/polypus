@@ -8,6 +8,10 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
         return $resource('api/journals/:journalName/:dt');
     })
 
+    .factory('stepsFactory', function($resource) {
+        return $resource('api/steps/:id');
+    })
+
     .service('journalsService', function(journalsFactory, $cookieStore, JOURNAL_NAME_COOKIE) {
         return {
             getCurrentJournal: function(currentDate) {
@@ -30,15 +34,24 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
         };
     })
 
-    .service('tasksService', function($resource, tasksFactory) {
+    .service('tasksService', function(tasksFactory) {
         return  {
             createTask: function(journal, taskName) {
-                var request = {
+                return tasksFactory.save({
                     journalId: journal.id,
                     taskName: taskName
-                };
-
-                return tasksFactory.save(request);
+                });
             }
         }
+    })
+
+    .service('stepsService', function(stepsFactory) {
+        return {
+            createStep: function(task, stepName) {
+                return stepsFactory.save({
+                    taskId: task.id,
+                    stepName: stepName
+                });
+            }
+        };
     });

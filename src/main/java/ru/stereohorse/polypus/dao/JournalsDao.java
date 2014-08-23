@@ -14,18 +14,18 @@ public class JournalsDao {
     private SessionFactory sessionFactory;
 
 
-    public Integer saveJournal(Journal journal) {
+    public Integer save(Journal journal) {
         return (Integer) sessionFactory.getCurrentSession().save(journal);
     }
 
-    public Journal getJournalByName(String name) {
+    public Journal getByName(String name) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Journal.class);
         criteria.add(Restrictions.eq("name", name));
 
         return (Journal) criteria.uniqueResult();
     }
 
-    public Journal getJournalById(Integer id) {
+    public Journal getById(Integer id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Journal.class);
         criteria.add(Restrictions.eq("id", id));
 

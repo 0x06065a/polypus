@@ -7,6 +7,7 @@ import ru.stereohorse.polypus.dao.JournalsDao;
 import ru.stereohorse.polypus.dao.PrioritiesDao;
 import ru.stereohorse.polypus.dao.StatusesDao;
 import ru.stereohorse.polypus.dao.TasksDao;
+import ru.stereohorse.polypus.model.Journal;
 import ru.stereohorse.polypus.model.Priority;
 import ru.stereohorse.polypus.model.Status;
 import ru.stereohorse.polypus.model.Task;
@@ -28,14 +29,19 @@ public class TasksService {
 
     @Transactional
     public Task createTask(Integer journalId, String name) {
+        Journal journal = journalsDao.getById(journalId);
+        if (journal == null) {
+            throw new RuntimeException("No such journal");
+        }
+
         Task task = new Task();
         task.setName(name);
 
-        task.setJournal(journalsDao.getJournalById(journalId));
+        task.setJournal(journal);
         task.setStatus(statusesDao.getByValue(Status.DEFAULT_VALUE));
         task.setPriority(prioritiesDao.getByValue(Priority.DEFAULT_VALUE));
 
-        task.setId(tasksDao.saveTask(task));
+        task.setId(tasksDao.save(task));
 
         return task;
     }

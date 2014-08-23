@@ -58,7 +58,7 @@
                 </tr>
                 <tr>
                   <td class="new-step" ng-controller="stepsController">
-                    <form ng-submit="addStep()">
+                    <form ng-submit="addStep(task)">
                       <input type="text" placeholder="Add step..." class="form-control input-sm" ng-model="newStepName">
                     </form>
                   </td>

@@ -1,7 +1,10 @@
 package ru.stereohorse.polypus.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -29,18 +32,12 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "journal")
+    @JsonIgnore
     private Journal journal;
 
+    @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
+    private List<Step> steps;
 
-    public Task() {
-    }
-
-    public Task(Task task) {
-        this.date = task.date;
-        this.name = task.name;
-        this.status = task.status;
-        this.priority = task.priority;
-    }
 
     public Integer getId() {
         return id;
@@ -88,5 +85,13 @@ public class Task {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 }

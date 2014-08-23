@@ -17,17 +17,24 @@ public class TasksDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public Integer saveTask(Task task) {
+    public Integer save(Task task) {
         return (Integer) sessionFactory.getCurrentSession().save(task);
     }
 
     @SuppressWarnings("unchecked")
-    public List<Task> getTasksForPeriod(Journal journal, Date startDate, Date endDate) {
+    public List<Task> getForPeriod(Journal journal, Date startDate, Date endDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Task.class);
         criteria.add(Restrictions.eq("journal", journal));
         criteria.add(Restrictions.ge("date", startDate));
         criteria.add(Restrictions.le("date", endDate));
 
         return criteria.list();
+    }
+
+    public Task getById(Integer taskId) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Task.class);
+        criteria.add(Restrictions.eq("id", taskId));
+
+        return (Task) criteria.uniqueResult();
     }
 }

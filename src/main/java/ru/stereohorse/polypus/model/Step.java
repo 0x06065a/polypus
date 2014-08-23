@@ -1,5 +1,7 @@
 package ru.stereohorse.polypus.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class Step {
 
     @ManyToOne
     @JoinColumn(name = "task")
+    @JsonIgnore
     private Task task;
 
     @Column(name = "date", insertable = false, updatable = false)

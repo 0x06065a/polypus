@@ -18,5 +18,10 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
     })
 
     .controller('stepsController', function($scope, stepsService) {
-        $scope.addStep = function() {window.alert('adding step with name ' + $scope.newStepName)};
+        $scope.addStep = function(task) {
+            console.log($scope);
+            var step = stepsService.createStep(task, $scope.newStepName);
+            task.steps.push(step);
+            $scope.newStepName = '';
+        };
     });

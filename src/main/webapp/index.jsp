@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="resources/css/style.css">
   </head>
   <body ng-controller="journalsController" style="background-image: url('resources/img/bgnd.jpg')">
-    <header class="navbar navbar-default navbar-static-top">
+    <header class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <p class="navbar-text">{{date.current | date:'dd.MM.yyyy'}}</p>

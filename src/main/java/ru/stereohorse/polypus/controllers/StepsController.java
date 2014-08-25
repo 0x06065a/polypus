@@ -21,6 +21,7 @@ public class StepsController {
 
     @RequestMapping(method = RequestMethod.POST, value = "")
     public Step createStep(@RequestBody StepCreateRequest request) {
-        return stepsService.createStep(request.getTaskId(), request.getStepName());
+        Integer stepId = stepsService.createStep(request.getTaskId(), request.getStepName()).getId();
+        return stepsService.getById(stepId);
     }
 }

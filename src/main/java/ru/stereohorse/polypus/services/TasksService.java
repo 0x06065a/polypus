@@ -36,7 +36,6 @@ public class TasksService {
 
         Task task = new Task();
         task.setName(name);
-
         task.setJournal(journal);
         task.setStatus(statusesDao.getByValue(Status.DEFAULT_VALUE));
         task.setPriority(prioritiesDao.getByValue(Priority.DEFAULT_VALUE));
@@ -44,5 +43,10 @@ public class TasksService {
         task.setId(tasksDao.save(task));
 
         return task;
+    }
+
+    @Transactional
+    public Task getById(Integer taskId) {
+        return tasksDao.getById(taskId);
     }
 }

@@ -93,4 +93,9 @@ public class Step {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

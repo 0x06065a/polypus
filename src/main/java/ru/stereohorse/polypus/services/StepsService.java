@@ -11,6 +11,7 @@ import ru.stereohorse.polypus.dao.TasksDao;
 import ru.stereohorse.polypus.model.Priority;
 import ru.stereohorse.polypus.model.Status;
 import ru.stereohorse.polypus.model.Step;
+import ru.stereohorse.polypus.model.Task;
 
 
 @Service
@@ -31,8 +32,13 @@ public class StepsService {
 
     @Transactional
     public Step createStep(Integer taskId, String stepName) {
+        Task task = tasksDao.getById(taskId);
+        if (task == null) {
+            throw new RuntimeException("No such task");
+        }
+
         Step step = new Step();
-        step.setTask(tasksDao.getById(taskId));
+        step.setTask(task);
         step.setName(stepName);
         step.setPriority(prioritiesDao.getByValue(Priority.DEFAULT_VALUE));
         step.setStatus(statusesDao.getByValue(Status.DEFAULT_VALUE));
@@ -40,5 +46,10 @@ public class StepsService {
         step.setId(stepsDao.save(step));
 
         return step;
+    }
+
+    @Transactional
+    public Step getById(Integer stepId) {
+        return stepsDao.getById(stepId);
     }
 }

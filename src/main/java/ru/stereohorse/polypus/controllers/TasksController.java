@@ -18,6 +18,7 @@ public class TasksController {
 
     @RequestMapping(method = RequestMethod.POST, value = "")
     public Task postTask(@RequestBody TaskCreateRequest request) {
-        return tasksService.createTask(request.getJournalId(), request.getTaskName());
+        Integer taskId = tasksService.createTask(request.getJournalId(), request.getTaskName()).getId();
+        return tasksService.getById(taskId);
     }
 }

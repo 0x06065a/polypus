@@ -1,6 +1,8 @@
 package ru.stereohorse.polypus.model;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class Task {
     private Journal journal;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     private List<Step> steps;
 
 
@@ -93,5 +96,10 @@ public class Task {
 
     public void setSteps(List<Step> steps) {
         this.steps = steps;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

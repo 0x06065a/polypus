@@ -51,4 +51,9 @@ public class Status {
     public void setValue(Value val) {
         this.value = val.name();
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

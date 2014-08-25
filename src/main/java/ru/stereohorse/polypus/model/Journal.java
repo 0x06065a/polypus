@@ -42,4 +42,9 @@ public class Journal {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

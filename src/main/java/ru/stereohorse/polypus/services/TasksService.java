@@ -52,6 +52,11 @@ public class TasksService {
 
     @Transactional
     public void deleteById(Integer id) {
-        tasksDao.deleteById(id);
+        tasksDao.setDeletedById(id, true);
+    }
+
+    @Transactional
+    public void finishById(Integer id) {
+        tasksDao.setFinishedById(id, true);
     }
 }

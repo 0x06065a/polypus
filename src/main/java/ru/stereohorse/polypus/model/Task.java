@@ -44,6 +44,17 @@ public class Task {
     @Column(name = "is_deleted", insertable = false)
     private Boolean isDeleted;
 
+    @Column(name = "is_finished", insertable = false)
+    private Boolean isFinished;
+
+
+    public Boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(Boolean isFinished) {
+        this.isFinished = isFinished;
+    }
 
     public Boolean isDeleted() {
         return isDeleted;

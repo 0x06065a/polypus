@@ -45,7 +45,7 @@ describe('journals service', function() {
             name: 'superAwesomeJournal'
         };
 
-        $httpBackend.expectPOST('api/journals', undefined).respond(createdJournal);
+        $httpBackend.expectGET('api/journals', undefined).respond(createdJournal);
 
         var currentJournal = journalsService.getCurrentJournal();
 

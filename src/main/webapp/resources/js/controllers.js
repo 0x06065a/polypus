@@ -3,10 +3,11 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
     .controller('journalsController', function($scope, journalsService) {
         $scope.date = {};
         $scope.date.current = new Date().getTime();
-
-        $scope.loadDesk = function() {};
-
         $scope.journal = journalsService.getCurrentJournal($scope.date.current);
+
+        $scope.loadDesk = function() {
+            $scope.journal = journalsService.getJournal($scope.journal.name, $scope.date.current);
+        };
     })
 
     .controller('tasksController', function($scope, tasksService, utils) {
@@ -19,6 +20,12 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
         $scope.deleteTask = function(task) {
             tasksService.deleteTask(task).then(function() {
                 utils.spliceById($scope.journal.tasks, task);
+            });
+        };
+
+        $scope.finishTask = function(task) {
+            tasksService.finishTask(task).then(function(){
+                task.finished = true;
             });
         };
     })

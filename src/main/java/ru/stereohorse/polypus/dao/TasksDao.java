@@ -39,8 +39,19 @@ public class TasksDao {
         return (Task) criteria.uniqueResult();
     }
 
-    public void deleteById(Integer id) {
-        String query = "UPDATE Task SET isDeleted = true WHERE id = :taskId";
-        sessionFactory.getCurrentSession().createQuery(query).setInteger("taskId", id).executeUpdate();
+    public void setDeletedById(Integer id, boolean isDeleted) {
+        String query = "UPDATE Task SET isDeleted = :isDeleted WHERE id = :taskId";
+        sessionFactory.getCurrentSession().createQuery(query)
+                .setInteger("taskId", id)
+                .setBoolean("isDeleted", isDeleted)
+                .executeUpdate();
+    }
+
+    public void setFinishedById(Integer id, boolean isFinished) {
+        String query = "UPDATE Task SET isFinished = :isFinished WHERE id = :taskId";
+        sessionFactory.getCurrentSession().createQuery(query)
+                .setInteger("taskId", id)
+                .setBoolean("isFinished", isFinished)
+                .executeUpdate();
     }
 }

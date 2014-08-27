@@ -17,11 +17,6 @@ public class JournalsController {
     private JournalsService journalsService;
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "")
-    public Journal postJournal() {
-        return journalsService.createJournal();
-    }
-
     @RequestMapping("{name}/{timestamp}")
     public Journal getJournal(@PathVariable("name") String name, @PathVariable("timestamp") Long timestamp) {
         return journalsService.getOrCreateJournal(name, new Date(timestamp));

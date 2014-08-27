@@ -1,7 +1,11 @@
 angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
 
     .factory('tasksFactory', function($resource) {
-        return $resource('api/tasks/:id', {id: '@id'});
+        return $resource('api/tasks/:id', {id: '@id'}, {
+            finish: {method: 'PUT', params: {
+                action: 'FINISH'
+            }}
+        });
     })
 
     .factory('journalsFactory', function($resource) {
@@ -15,21 +19,16 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
     .service('journalsService', function(journalsFactory, $cookieStore, JOURNAL_NAME_COOKIE) {
         return {
             getCurrentJournal: function(currentDate) {
-                var currentJournalName = $cookieStore.get(JOURNAL_NAME_COOKIE);
+                return this.getJournal($cookieStore.get(JOURNAL_NAME_COOKIE), currentDate);
+            },
+            getJournal: function(name, currentDate) {
+                var journal = journalsFactory.get({journalName: name, dt: currentDate});
 
-                if (currentJournalName) {
-                    return journalsFactory.get({
-                        journalName: currentJournalName,
-                        dt: currentDate});
-                } else {
-                    var journal = journalsFactory.save();
+                journal.$promise.then(function(createdJournal) {
+                    $cookieStore.put(JOURNAL_NAME_COOKIE, createdJournal.name);
+                });
 
-                    journal.$promise.then(function(createdJournal) {
-                        $cookieStore.put(JOURNAL_NAME_COOKIE, createdJournal.name);
-                    });
-
-                    return journal;
-                }
+                return journal;
             }
         };
     })
@@ -38,12 +37,16 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
         return  {
             createTask: function(journal, taskName) {
                 return tasksFactory.save({
+                    // TODO: should send time
                     journalId: journal.id,
                     taskName: taskName
                 });
             },
             deleteTask: function(task) {
                 return tasksFactory.delete(task).$promise;
+            },
+            finishTask: function(task) {
+                return tasksFactory.finish(task).$promise;
             }
         }
     })

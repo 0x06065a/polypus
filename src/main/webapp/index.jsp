@@ -31,10 +31,10 @@
         <li ng-repeat="task in journal.tasks" class="task">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <div class="panel-title">{{task.name}}
-                <div showonparenthover class="task-controls">
+              <div class="panel-title" ng-class="{'finished': task.finished}">{{task.name}}
+                <div class="task-controls">
                   <button class="btn btn-success btn-xs">
-                    <span class="glyphicon glyphicon-ok"></span>
+                    <span class="glyphicon glyphicon-ok" ng-click="finishTask(task)"></span>
                   </button>
                   <button class="btn btn-danger btn-xs" ng-click="deleteTask(task)">
                     <span class="glyphicon glyphicon-remove"></span>
@@ -47,7 +47,7 @@
                 <tr ng-repeat="step in task.steps">
                   <td class="step">
                     <div class="step-title">{{step.name}}
-                      <div showonparenthover class="step-controls">
+                      <div class="step-controls">
                         <button class="btn btn-warning btn-xs"><span
                             class="glyphicon glyphicon-log-out"></span></button>
                         <button class="btn btn-success btn-xs"><span
@@ -58,7 +58,7 @@
                     </div>
                   </td>
                 </tr>
-                <tr>
+                <tr ng-show="!task.finished">
                   <td class="new-step" ng-controller="stepsController">
                     <form ng-submit="addStep(task)">
                       <input type="text" placeholder="Add step..." class="form-control input-sm" ng-model="newStepName">

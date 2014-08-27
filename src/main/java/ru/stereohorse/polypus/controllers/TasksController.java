@@ -23,4 +23,17 @@ public class TasksController {
     public void deleteTask(@PathVariable("id") Integer id) {
         tasksService.deleteById(id);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "{id}")
+    public void finishTask(@PathVariable("id") Integer id, @RequestParam String action) {
+        switch (Action.valueOf(action)) {
+            case FINISH:
+                tasksService.finishById(id);
+                break;
+        }
+    }
+
+    private static enum Action {
+        FINISH
+    }
 }

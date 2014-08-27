@@ -30,4 +30,12 @@ describe('tasks service', function() {
         expect(createdTask.name).toEqual(expectedTask.name);
         expect(createdTask.somethingElse).toEqual(expectedTask.somethingElse);
     });
+
+    it('can delete task', function () {
+        var task = {id: 123};
+        $httpBackend.expectDELETE('api/tasks/' + task.id).respond();
+
+        tasksService.deleteTask(task);
+        $httpBackend.flush();
+    });
 });

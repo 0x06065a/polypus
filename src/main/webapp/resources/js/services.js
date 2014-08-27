@@ -1,7 +1,7 @@
 angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
 
     .factory('tasksFactory', function($resource) {
-        return $resource('api/tasks/:id');
+        return $resource('api/tasks/:id', {id: '@id'});
     })
 
     .factory('journalsFactory', function($resource) {
@@ -41,6 +41,9 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
                     journalId: journal.id,
                     taskName: taskName
                 });
+            },
+            deleteTask: function(task) {
+                return tasksFactory.delete(task).$promise;
             }
         }
     })
@@ -52,6 +55,19 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
                     taskId: task.id,
                     stepName: stepName
                 });
+            }
+        };
+    })
+
+    .service('utils', function() {
+        return {
+            spliceById: function(array, element) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].id == element.id) {
+                        array.splice(i, 1);
+                        return;
+                    }
+                }
             }
         };
     });

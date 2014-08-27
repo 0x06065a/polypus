@@ -26,7 +26,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "status")
-    protected Status status;
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "priority")
@@ -41,6 +41,17 @@ public class Task {
     @Fetch(FetchMode.SUBSELECT)
     private List<Step> steps;
 
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
+
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public Integer getId() {
         return id;

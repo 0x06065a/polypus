@@ -33,10 +33,12 @@
             <div class="panel-heading">
               <div class="panel-title">{{task.name}}
                 <div showonparenthover class="task-controls">
-                  <button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span>
+                  <button class="btn btn-success btn-xs">
+                    <span class="glyphicon glyphicon-ok"></span>
                   </button>
-                  <button class="btn btn-danger btn-xs"><span
-                      class="glyphicon glyphicon-remove"></span></button>
+                  <button class="btn btn-danger btn-xs" ng-click="deleteTask(task)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
                 </div>
               </div>
             </div>

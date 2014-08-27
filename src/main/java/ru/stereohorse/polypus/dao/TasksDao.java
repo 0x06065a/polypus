@@ -22,11 +22,12 @@ public class TasksDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Task> getForPeriod(Journal journal, Date startDate, Date endDate) {
+    public List<Task> getActiveForPeriod(Journal journal, Date startDate, Date endDate) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Task.class);
         criteria.add(Restrictions.eq("journal", journal));
         criteria.add(Restrictions.ge("date", startDate));
         criteria.add(Restrictions.le("date", endDate));
+        criteria.add(Restrictions.eq("isDeleted", false));
 
         return criteria.list();
     }
@@ -36,5 +37,10 @@ public class TasksDao {
         criteria.add(Restrictions.eq("id", taskId));
 
         return (Task) criteria.uniqueResult();
+    }
+
+    public void deleteById(Integer id) {
+        String query = "UPDATE Task SET isDeleted = true WHERE id = :taskId";
+        sessionFactory.getCurrentSession().createQuery(query).setInteger("taskId", id).executeUpdate();
     }
 }

@@ -49,4 +49,9 @@ public class TasksService {
     public Task getById(Integer taskId) {
         return tasksDao.getById(taskId);
     }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        tasksDao.deleteById(id);
+    }
 }

@@ -75,3 +75,7 @@ VALUES ('medium', 'MEDIUM');
 
 INSERT INTO statuses (name, value)
 VALUES ('open', 'OPEN');
+
+ALTER TABLE tasks
+ADD COLUMN is_deleted BOOLEAN NOT NULL DEFAULT false;
+

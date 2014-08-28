@@ -46,6 +46,7 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
         $scope.finishStep = function(step) {
             stepsService.finishStep(step).then(function() {
                 step.finished = true;
+                console.log(step);
             });
         };
     });

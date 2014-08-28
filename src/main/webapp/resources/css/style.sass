@@ -20,7 +20,6 @@ body
     margin: 8px auto 0 auto
     z-index: 6969
     width: 40px
-  //display: none
 
   #tasks
     padding: 0
@@ -48,6 +47,7 @@ body
 
           .finished
             text-decoration: line-through
+            color: #AAA
 
           .task-controls
             float: right
@@ -58,6 +58,10 @@ body
           padding-right: 5px
 
       .step
+
+        .finished
+          text-decoration: line-through
+          color: #AAA
 
         &:hover
           .step-title .step-controls

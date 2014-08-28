@@ -52,4 +52,14 @@ public class StepsService {
     public Step getById(Integer stepId) {
         return stepsDao.getById(stepId);
     }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        stepsDao.setDeletedById(id, true);
+    }
+
+    @Transactional
+    public void finishById(Integer id) {
+        stepsDao.setFinishedById(id, true);
+    }
 }

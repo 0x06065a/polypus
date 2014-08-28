@@ -2,11 +2,12 @@ package ru.stereohorse.polypus.services;
 
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class DateServiceTest {
@@ -22,7 +23,7 @@ public class DateServiceTest {
 
     @Test
     public void testEndOfDay() throws ParseException {
-        Date date = dateService.getEndOfDay(dateFormat.parse("19.08.2014 20:47:54.345"));
+        Date date = dateService.getNextDay(dateFormat.parse("19.08.2014 20:47:54.345"));
         assertEquals(dateFormat.parse("19.08.2014 23:59:59.999"), date);
     }
 }

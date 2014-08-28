@@ -2,6 +2,7 @@ package ru.stereohorse.polypus.dao;
 
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,22 @@ public class TasksDao {
 
     @SuppressWarnings("unchecked")
     public List<Task> getActiveForPeriod(Journal journal, Date startDate, Date endDate) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Task.class);
-        criteria.add(Restrictions.eq("journal", journal));
-        criteria.add(Restrictions.ge("date", startDate));
-        criteria.add(Restrictions.le("date", endDate));
-        criteria.add(Restrictions.eq("isDeleted", false));
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "from ru.stereohorse.polypus.model.Task task " +
+                "left join fetch task.steps step " +
+                "join fetch task.priority " +
+                "join fetch task.status " +
+                "where task.date >= :startDate " +
+                "  and task.date < :endDate " +
+                "  and task.journal = :journal" +
+                "  and task.isDeleted = false " +
+                "  and (step.isDeleted = false or step is null) " +
+                "order by task.date, step.date")
+                .setDate("startDate", startDate)
+                .setDate("endDate", endDate)
+                .setEntity("journal", journal);
 
-        return criteria.list();
+        return query.list();
     }
 
     public Task getById(Integer taskId) {
@@ -40,7 +50,7 @@ public class TasksDao {
     }
 
     public void setDeletedById(Integer id, boolean isDeleted) {
-        String query = "UPDATE Task SET isDeleted = :isDeleted WHERE id = :taskId";
+        String query = "update Task set isDeleted = :isDeleted where id = :taskId";
         sessionFactory.getCurrentSession().createQuery(query)
                 .setInteger("taskId", id)
                 .setBoolean("isDeleted", isDeleted)
@@ -48,7 +58,7 @@ public class TasksDao {
     }
 
     public void setFinishedById(Integer id, boolean isFinished) {
-        String query = "UPDATE Task SET isFinished = :isFinished WHERE id = :taskId";
+        String query = "update Task set isFinished = :isFinished where id = :taskId";
         sessionFactory.getCurrentSession().createQuery(query)
                 .setInteger("taskId", id)
                 .setBoolean("isFinished", isFinished)

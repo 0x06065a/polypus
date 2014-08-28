@@ -34,7 +34,7 @@ public class JournalsService {
         Journal journal = journalsDao.getByName(name);
         if (journal != null) {
             Date startDate = dateService.getStartOfDay(date);
-            Date endDate = dateService.getEndOfDay(date);
+            Date endDate = dateService.getNextDay(date);
             journal.setTasks(tasksDao.getActiveForPeriod(journal, startDate, endDate));
 
             return journal;

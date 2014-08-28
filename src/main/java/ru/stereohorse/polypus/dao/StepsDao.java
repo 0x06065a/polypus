@@ -25,4 +25,20 @@ public class StepsDao {
 
         return (Step) criteria.uniqueResult();
     }
+
+    public void setDeletedById(Integer id, boolean isDeleted) {
+        String query = "UPDATE Step SET isDeleted = :isDeleted WHERE id = :stepId";
+        sessionFactory.getCurrentSession().createQuery(query)
+                .setInteger("stepId", id)
+                .setBoolean("isDeleted", isDeleted)
+                .executeUpdate();
+    }
+
+    public void setFinishedById(Integer id, boolean isFinished) {
+        String query = "UPDATE Step SET isFinished = :isFinished WHERE id = :stepId";
+        sessionFactory.getCurrentSession().createQuery(query)
+                .setInteger("stepId", id)
+                .setBoolean("isFinished", isFinished)
+                .executeUpdate();
+    }
 }

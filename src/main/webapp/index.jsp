@@ -36,30 +36,33 @@
                   <button class="btn btn-success btn-xs">
                     <span class="glyphicon glyphicon-ok" ng-click="finishTask(task)"></span>
                   </button>
-                  <button class="btn btn-danger btn-xs" ng-click="deleteTask(task)">
-                    <span class="glyphicon glyphicon-remove"></span>
+                  <button class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove" ng-click="deleteTask(task)"></span>
                   </button>
                 </div>
               </div>
             </div>
-            <table class="table">
+            <table class="table" ng-controller="stepsController">
               <tbody>
                 <tr ng-repeat="step in task.steps">
                   <td class="step">
-                    <div class="step-title">{{step.name}}
+                    <div class="step-title" ng-class="{'finished': step.finished}">{{step.name}}
                       <div class="step-controls">
-                        <button class="btn btn-warning btn-xs"><span
-                            class="glyphicon glyphicon-log-out"></span></button>
-                        <button class="btn btn-success btn-xs"><span
-                            class="glyphicon glyphicon-ok"></span></button>
-                        <button class="btn btn-danger btn-xs"><span
-                            class="glyphicon glyphicon-remove"></span></button>
+                        <button class="btn btn-warning btn-xs">
+                          <span class="glyphicon glyphicon-log-out"></span>
+                        </button>
+                        <button class="btn btn-success btn-xs">
+                          <span class="glyphicon glyphicon-ok" ng-click="finishStep(step)"></span>
+                        </button>
+                        <button class="btn btn-danger btn-xs">
+                          <span class="glyphicon glyphicon-remove" ng-click="deleteStep(step)"></span>
+                        </button>
                       </div>
                     </div>
                   </td>
                 </tr>
                 <tr ng-show="!task.finished">
-                  <td class="new-step" ng-controller="stepsController">
+                  <td class="new-step">
                     <form ng-submit="addStep(task)">
                       <input type="text" placeholder="Add step..." class="form-control input-sm" ng-model="newStepName">
                     </form>

@@ -37,6 +37,28 @@ public class Step {
     @JoinColumn(name = "status")
     private Status status;
 
+    @Column(name = "is_deleted", insertable = false)
+    private Boolean isDeleted;
+
+    @Column(name = "is_finished", insertable = false)
+    private Boolean isFinished;
+
+
+    public Boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public Boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(Boolean isFinished) {
+        this.isFinished = isFinished;
+    }
 
     public Integer getId() {
         return id;

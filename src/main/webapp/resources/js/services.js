@@ -13,7 +13,11 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
     })
 
     .factory('stepsFactory', function($resource) {
-        return $resource('api/steps/:id');
+        return $resource('api/steps/:id', {id: '@id'}, {
+            finish: {method: 'PUT', params: {
+                action: 'FINISH'
+            }}
+        });
     })
 
     .service('journalsService', function(journalsFactory, $cookieStore, JOURNAL_NAME_COOKIE) {
@@ -58,6 +62,12 @@ angular.module('polypusModule.services', ['ngCookies', 'ngResource'])
                     taskId: task.id,
                     stepName: stepName
                 });
+            },
+            deleteStep: function(step) {
+                return stepsFactory.delete(step).$promise;
+            },
+            finishStep: function(step) {
+                return stepsFactory.finish(step).$promise;
             }
         };
     })

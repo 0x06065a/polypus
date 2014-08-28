@@ -30,10 +30,22 @@ angular.module('polypusModule.controllers', ['polypusModule.services'])
         };
     })
 
-    .controller('stepsController', function($scope, stepsService) {
+    .controller('stepsController', function($scope, stepsService, utils) {
         $scope.addStep = function(task) {
             var step = stepsService.createStep(task, $scope.newStepName);
             task.steps.push(step);
             $scope.newStepName = '';
+        };
+
+        $scope.deleteStep = function(step) {
+            stepsService.deleteStep(step).then(function() {
+                utils.spliceById($scope.task.steps, step);
+            });
+        };
+
+        $scope.finishStep = function(step) {
+            stepsService.finishStep(step).then(function() {
+                step.finished = true;
+            });
         };
     });

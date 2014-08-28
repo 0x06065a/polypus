@@ -9,6 +9,7 @@ import ru.stereohorse.polypus.services.TasksService;
 @RestController
 @RequestMapping("tasks")
 public class TasksController {
+
     @Autowired
     private TasksService tasksService;
 
@@ -32,6 +33,7 @@ public class TasksController {
                 break;
         }
     }
+
 
     private static enum Action {
         FINISH
